@@ -2,7 +2,7 @@ import java.util.List;
 
 public class Ramo {
 	private Fermata prima_fermata;
-	private List<Punto> foglie;
+	private List<Fermata> foglie;
 	
 	public Ramo(Fermata fermata){
 		this.prima_fermata = fermata;
@@ -16,12 +16,19 @@ public class Ramo {
 		this.prima_fermata = prima_fermata;
 	}
 
-	public List<Punto> getFoglie() {
+	public List<Fermata> getFoglie() {
 		return foglie;
 	}
 
-	public void aggiungiFoglie(Punto foglia) {
+	public void aggiungiFoglia(Fermata foglia) {
 		this.foglie.add(foglia);
+	}
+	
+	public void sostituisciFoglia(Fermata vecchia, Fermata nuova){
+		int pos;
+		pos = this.foglie.indexOf(vecchia);
+		this.foglie.remove(pos);
+		this.foglie.add(pos, nuova);
 	}
 	
 	
