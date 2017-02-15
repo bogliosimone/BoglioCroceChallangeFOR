@@ -1,3 +1,4 @@
+package src;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class Solver {
 		return false;
 	}
 	
-	//miglioramento: escludere nodi già visitati
+	//miglioramento: escludere nodi giï¿½ visitati
 	private void inserisciPuntoComeNuovaFoglia(Punto punto, Risultato risultato){
 		for(Ramo r: this.tronco){
 			for(Fermata f: r.getFoglie()){

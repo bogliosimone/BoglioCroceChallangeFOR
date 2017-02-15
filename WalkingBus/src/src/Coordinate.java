@@ -1,3 +1,4 @@
+package src;
 
 public class Coordinate {
 	private int x;

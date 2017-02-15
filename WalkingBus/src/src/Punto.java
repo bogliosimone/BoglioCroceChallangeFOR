@@ -1,3 +1,4 @@
+package src;
 
 public class Punto {
 	private Coordinate coord;

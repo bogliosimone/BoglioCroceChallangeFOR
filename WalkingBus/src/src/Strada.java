@@ -1,3 +1,4 @@
+package src;
 
 public class Strada {
 	private Punto partenza;
