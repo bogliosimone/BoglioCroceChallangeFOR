@@ -8,10 +8,11 @@ public class Fermata {
 	private float distanza_parziale;
 	private float pericolo_parziale;
 	
-	public Fermata(Punto punto, Fermata fermata, float distanza){
+	public Fermata(Punto punto, Fermata fermata, float distanza, float pericolo){
 		this.punto_attuale = punto;
 		this.fermata_precedente = fermata;
 		this.distanza_parziale = distanza;
+		this.pericolo_parziale = pericolo;
 	}
 
 	public Punto getPunto_attuale() {
