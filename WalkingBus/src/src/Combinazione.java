@@ -3,11 +3,11 @@ package src;
 public class Combinazione {
 	private Ramo ramo;
 	private Fermata fermata;
-	private float pericolo;
+	private double pericolo;
 	private Punto punto;
-	private float distanza;
+	private double distanza;
 	
-	public Combinazione(Ramo ramo, Fermata fermata, float pericolo, Punto punto, float distanza){
+	public Combinazione(Ramo ramo, Fermata fermata, double pericolo, Punto punto, double distanza){
 		this.ramo = ramo;
 		this.fermata = fermata;
 		this.pericolo = pericolo;
@@ -30,7 +30,7 @@ public class Combinazione {
 		this.fermata = fermata;
 	}
 
-	public float getPericolo() {
+	public double getPericolo() {
 		return pericolo;
 	}
 
@@ -46,7 +46,7 @@ public class Combinazione {
 		this.punto = punto;
 	}
 
-	public float getDistanza() {
+	public double getDistanza() {
 		return distanza;
 	}
 
@@ -60,6 +60,14 @@ public class Combinazione {
 
 	public void setRamo(Ramo ramo) {
 		this.ramo = ramo;
+	}
+
+	public void setPericolo(double pericolo) {
+		this.pericolo = pericolo;
+	}
+
+	public void setDistanza(double distanza) {
+		this.distanza = distanza;
 	}
 	
 	

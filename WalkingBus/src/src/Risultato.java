@@ -5,10 +5,12 @@ import java.util.List;
 public class Risultato {
 	private List<Strada> strade;
 	private int num_foglie;
-	private float pericolo;
+	private double pericolo;
 	
 	public Risultato(){
 		this.strade = new ArrayList<>();
+		this.num_foglie = 0;
+		this.pericolo = 0;
 	}
 	
 	public List<Strada> getStrade() {
@@ -27,11 +29,11 @@ public class Risultato {
 		this.num_foglie = num_foglie;
 	}
 	
-	public float getPericolo() {
+	public double getPericolo() {
 		return pericolo;
 	}
 	
-	public void setPericolo(float pericolo) {
+	public void setPericolo(double pericolo) {
 		this.pericolo = pericolo;
 	}
 	

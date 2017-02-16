@@ -1,4 +1,5 @@
 package src;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ramo {
@@ -7,6 +8,7 @@ public class Ramo {
 	
 	public Ramo(Fermata fermata){
 		this.prima_fermata = fermata;
+		this.foglie = new ArrayList<>();
 	}
 
 	public Fermata getPrima_fermata() {
