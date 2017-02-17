@@ -13,14 +13,19 @@ public class main {
 		Solver solver;
 		Risultato risultato;
 		Dataset dataset;
-		String pathDatFile = "test_instances/pedibus_20.dat"; // for debug mode
-		if(args.length != 1 && !debugMode) {
-			  System.err.println("Invalid command line, exactly one argument required");
-			  System.exit(1);
+		String pathDatFile; // for debug mode
+		String debugPathFile = "test_instances/pedibus_20.dat";
+		if(args.length != 1) {
+			if(!debugMode){
+				System.err.println("Invalid command line, exactly one argument required");
+				return;
+			}else{
+				pathDatFile = debugPathFile;
 			}
-		else{
+		}else{
 			pathDatFile = args[0];
 		}
+		
 		dataset = InputParser.initializeData(pathDatFile);
 		
 		solver = new Solver(dataset.getPoints(), dataset.getDangerMatrix(), dataset.getParamAlpha());
