@@ -44,7 +44,9 @@ public class Solver {
 	
 	private void ordina2(){
 		Collections.sort(this.punti, (p1, p2)->new Double(p1.getDistanza_origine()).compareTo(new Double(p2.getDistanza_origine())));
-		
+		/*for(Punto p: this.punti){
+			System.out.println(p);
+		}*/
 	}
 	
 	public Risultato calcola(){

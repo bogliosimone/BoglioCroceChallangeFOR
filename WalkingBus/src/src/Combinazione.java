@@ -16,7 +16,7 @@ public class Combinazione {
 	}
 	
 	public boolean controlloMigliore(Combinazione combinazione){
-		if(combinazione.getPericolo() < this.pericolo){
+		if(combinazione.getDistanza() < this.distanza){
 			return true;
 		}
 		return false;

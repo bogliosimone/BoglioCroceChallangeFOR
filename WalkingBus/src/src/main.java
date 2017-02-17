@@ -12,7 +12,7 @@ public class main {
 		Solver solver;
 		Risultato risultato;
 		Dataset dataset;
-		String cazzodifile = "test_instances/pedibus_50.dat";
+		String cazzodifile = "test_instances/pedibus_300.dat";
 		
 		dataset = InputParser.initializeData(cazzodifile);
 		
@@ -28,5 +28,4 @@ public class main {
 		OutputParser.OutputFile(cazzodifile, risultato);
 
 	}
-
 }

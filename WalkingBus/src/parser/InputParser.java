@@ -53,7 +53,7 @@ public class InputParser {
 				if (i==0)
 					distanceFromRoot = 0;
 				else
-					distanceFromRoot = Math.sqrt(((tmpX-xRoot)*(tmpX-xRoot))+((tmpY-yRoot)*(tmpY-yRoot)));
+					distanceFromRoot = Math.sqrt((((double)tmpX-(double)xRoot)*((double)tmpX-(double)xRoot))+(((double)tmpY-(double)yRoot)*((double)tmpY-(double)yRoot)));
 				points.add(new Punto(coord,i,distanceFromRoot));
 				for(int j=0; j<= paramN; j++){
 					dangerMatrix[i][j] = mapD.get(new Key(i,j));
