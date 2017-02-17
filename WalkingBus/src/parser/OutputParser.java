@@ -38,17 +38,19 @@ public class OutputParser {
 				graph.addNode(Integer.toString(s.getArrivo().getId()))
 				.setAttribute("xyz",s.getArrivo().getCoord().getX(),
 						s.getArrivo().getCoord().getY(),0);
+				graph.getNode(Integer.toString(s.getArrivo().getId())).setAttribute("ui.label", Integer.toString(s.getArrivo().getId()));
 				}catch(Exception e){}
 				try{
 				graph.addNode(Integer.toString(s.getPartenza().getId()))
 				.setAttribute("xyz",s.getPartenza().getCoord().getX(),
 						s.getPartenza().getCoord().getY(),0);
+				graph.getNode(Integer.toString(s.getPartenza().getId())).setAttribute("ui.label", Integer.toString(s.getPartenza().getId()));
 				}catch(Exception e){}
 				try{
 				graph.addEdge(Integer.toString(s.getArrivo().getId())+Integer.toString(s.getPartenza().getId()), Integer.toString(s.getArrivo().getId()), Integer.toString(s.getPartenza().getId()));
 				}catch(Exception e){}
 			}
-			graph.getNode(0).setAttribute("ui.style", "fill-color: red;");
+			graph.getNode("0").setAttribute("ui.style", "fill-color: red;");
 			graph.display(false);
 		}
 }
