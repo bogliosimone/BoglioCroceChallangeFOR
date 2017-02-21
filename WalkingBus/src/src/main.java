@@ -10,7 +10,7 @@ public class main {
 
 	public static void main(String[] args) throws Exception{
 		Boolean debugMode = true;
-		Solver solver;
+		SolverPerm solver;
 		Risultato risultato;
 		Dataset dataset;
 		String pathDatFile; // for debug mode
@@ -28,7 +28,7 @@ public class main {
 		
 		dataset = InputParser.initializeData(pathDatFile);
 		
-		solver = new Solver(dataset.getPoints(), dataset.getDangerMatrix(), dataset.getParamAlpha());
+		solver = new SolverPerm(dataset.getPoints(), dataset.getDangerMatrix(), dataset.getParamAlpha());
 		risultato = solver.calcola();
 		
 		for(Strada s: risultato.getStrade()){
