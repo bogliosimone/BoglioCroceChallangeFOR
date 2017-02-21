@@ -19,6 +19,9 @@ public class Combinazione {
 		if(combinazione.getDistanza() < this.distanza){
 			return true;
 		}
+		if(combinazione.getDistanza() == this.distanza && combinazione.getPericolo() < this.pericolo){
+			return true;
+		}
 		return false;
 	}
 

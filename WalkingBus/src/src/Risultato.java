@@ -17,6 +17,15 @@ public class Risultato {
 		return strade;
 	}
 	
+	public void rimuoviStrade(Punto punto1, Punto punto2){
+		for(Strada s: this.strade){
+			if(s.getPartenza()==punto1 && s.getArrivo()==punto2){
+				this.strade.remove(s);
+				return;
+			}
+		}
+	}
+	
 	public void aggiungiStrade(Strada strada) {
 		this.strade.add(strada);
 	}
