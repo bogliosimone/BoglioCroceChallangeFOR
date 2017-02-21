@@ -41,9 +41,9 @@ public class SolverPerm {
 		
 		Risultato risultato;
 		Punto temp;
-		int j, i;
+		int i =0;
 		ordinaDistanza();
-		Permutazione perm = new Permutazione((ArrayList<Punto>) this.punti,10);
+		Permutazione perm = new Permutazione((ArrayList<Punto>) this.punti,9);
 		this.punti = perm.getNextPermutation(); 
 		while(this.punti!=null){
 			risultato = new Risultato();
@@ -70,6 +70,9 @@ public class SolverPerm {
 				}
 			}
 			this.punti = perm.getNextPermutation();
+			i++;
+			if(i%100000==0)
+				System.out.println(i);
 		}
 		long end = System.currentTimeMillis();
 		System.out.println("Exe time: "+(end - start) + " ms");

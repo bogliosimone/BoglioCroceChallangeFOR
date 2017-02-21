@@ -14,7 +14,7 @@ public class main {
 		Risultato risultato;
 		Dataset dataset;
 		String pathDatFile; // for debug mode
-		String debugPathFile = "test_instances/pedibus_300.dat";
+		String debugPathFile = "test_instances/pedibus_100.dat";
 		if(args.length != 1) {
 			if(!debugMode){
 				System.err.println("Invalid command line, exactly one argument required");

@@ -12,7 +12,6 @@ public class Permutazione {
 	int n;
 	List<List<Punto>> permutationsPoints = new ArrayList<List<Punto>>();
 	int sizePermutations;
-	int count = 0;
 	
 	
 	/*public static void main(String[] args) throws Exception{
@@ -45,15 +44,14 @@ public class Permutazione {
 		cuttedListEnd = this.original.subList(n, original.size());
 		permutationsPoints = (List<List<Punto>>) permute(cuttedListStart);
 		sizePermutations = permutationsPoints.size();
-		count = 0;
 	}
 	
 	public List<Punto> getNextPermutation(){
-		if(count >= sizePermutations)
+		if(permutationsPoints.isEmpty())
 			return null;
-		List<Punto> newPermutation = permutationsPoints.get(count);
+		List<Punto> newPermutation = permutationsPoints.remove(sizePermutations-1);
+		sizePermutations --;
 		newPermutation.addAll(cuttedListEnd);
-		count ++;
 		return newPermutation;
 	}
 	
