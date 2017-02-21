@@ -9,7 +9,8 @@ public class SolverPerm {
 	private List<Ramo> tronco;
 	private Punto scuola;
 	private double[][] distanze;
-	private double[][] pericolosita;  
+	private double[][] pericolosita; 
+	private Risultato risultatoMigliore = null;
 	
 	private double alpha; 
 	
@@ -37,12 +38,12 @@ public class SolverPerm {
 	
 	public Risultato calcola(){
 		long start = System.currentTimeMillis();
-		Risultato risultatoMigliore = null;
+		
 		Risultato risultato;
 		Punto temp;
 		int j, i;
 		ordinaDistanza();
-		Permutazione perm = new Permutazione((ArrayList<Punto>) this.punti,9);
+		Permutazione perm = new Permutazione((ArrayList<Punto>) this.punti,10);
 		this.punti = perm.getNextPermutation(); 
 		while(this.punti!=null){
 			risultato = new Risultato();
@@ -52,7 +53,9 @@ public class SolverPerm {
 					iniziaNuovoRamo(p, risultato);
 				}
 				else if(!inserisciPuntoSuFoglieEsistenti(p, risultato)){
-						inserisciPuntoComeNuovaFoglia(p, risultato);
+						if(!inserisciPuntoComeNuovaFoglia(p, risultato)){
+							break;
+						}
 				}
 			}
 			if(risultatoMigliore == null){
@@ -96,14 +99,18 @@ public class SolverPerm {
 		}
 	}
 	
-	private void iniziaNuovoRamo(Punto punto, Risultato risultato){
+	private boolean iniziaNuovoRamo(Punto punto, Risultato risultato){
 		Fermata fermata = new Fermata(punto, null, punto.getDistanza_origine(), this.pericolosita[punto.getId()][0]);
 		Ramo ramo = new Ramo(fermata);
 		ramo.aggiungiFoglia(fermata);
 		this.tronco.add(ramo);
 		risultato.aggiungiStrade(new Strada(this.scuola, punto));
 		risultato.setNum_foglie(risultato.getNum_foglie()+1);
+		if(this.risultatoMigliore != null && risultato.getNum_foglie() > this.risultatoMigliore.getNum_foglie()){
+			return false;
+		}
 		risultato.setPericolo(risultato.getPericolo() + this.pericolosita[punto.getId()][0]);
+		return true;
 	}
 	
 	private boolean inserisciPuntoSuFoglieEsistenti(Punto punto, Risultato risultato){
@@ -142,7 +149,7 @@ public class SolverPerm {
 		return false;
 	}
 	
-	private void inserisciPuntoComeNuovaFoglia(Punto punto, Risultato risultato){
+	private boolean inserisciPuntoComeNuovaFoglia(Punto punto, Risultato risultato){
 		List<Fermata> visitate;
 		Combinazione combinazione = null;
 		Combinazione combinazioneTemp = null;
@@ -186,11 +193,15 @@ public class SolverPerm {
 			combinazione.getRamo().aggiungiFoglia(fermata);
 			risultato.aggiungiStrade(new Strada(fermata_precedente.getPunto_attuale(), punto));
 			risultato.setNum_foglie(risultato.getNum_foglie()+1);
+			if(this.risultatoMigliore != null && risultato.getNum_foglie() > this.risultatoMigliore.getNum_foglie()){
+				return false;
+			}
 			risultato.setPericolo(risultato.getPericolo() + this.pericolosita[punto.getId()][fermata_precedente.getPunto_attuale().getId()]);
 		}
 		else{
 			iniziaNuovoRamo(punto, risultato);
 		}
+		return true;
 	}
 	
 	private void spostaFoglie(Risultato risultato){
