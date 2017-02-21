@@ -19,21 +19,28 @@ public class Solver {
 		this.scuola = this.punti.remove(0);
 		this.alpha = alpha;
 		calcolaDistanze();
+		for(Punto p: this.punti){
+			p.calcolaAngolo(this.scuola);
+		}
 	}
 	
-	private void ordina2(){
+	private void ordinaDistanza(){
 		Collections.sort(this.punti, (p1, p2)->new Double(p1.getDistanza_origine()).compareTo(new Double(p2.getDistanza_origine())));
-		/*for(Punto p: this.punti){
-			System.out.println(p);
-		}*/
+	}
+	
+	private void ordinaAngolo(){
+		Collections.sort(this.punti, (p1, p2)->new Double(p1.getAngolo()).compareTo(new Double(p2.getAngolo())));
+		for(Punto p: this.punti){
+			System.out.println(p.getId() + " " + p.getAngolo());
+		}
 	}
 	
 	public Risultato calcola(){
 		Risultato risultatoMigliore = null;
 		Risultato risultato;
 		Punto temp;
-		int i;
-		ordina2();
+		int j, i;
+		ordinaDistanza();
 		for(i=0 ; i<this.punti.size() ; i++){
 			risultato = new Risultato();
 			this.tronco = new ArrayList<>();
@@ -59,7 +66,6 @@ public class Solver {
 			temp = this.punti.remove(0);
 			this.punti.add(temp);
 		}	
-		//spostaFoglie(risultatoMigliore);
 		return risultatoMigliore;
 	}
 	
@@ -219,41 +225,6 @@ public class Solver {
 					risultato.aggiungiStrade(new Strada(fermata_precedente.getPunto_attuale(), punto));
 					risultato.setPericolo(risultato.getPericolo() + this.pericolosita[punto.getId()][fermata_precedente.getPunto_attuale().getId()]);
 				}
-			}
-		}
-	}
-	
-	public void calcola2(){
-		if(this.tronco.isEmpty()){
-			for(Punto p: this.punti){
-				Ramo ramo;
-				Fermata fermata;
-				fermata = new Fermata(p, null, p.getDistanza_origine(),this.pericolosita[p.getId()][0]);
-				ramo = new Ramo(fermata);
-				ramo.aggiungiFoglia(fermata);		
-				this.tronco.add(ramo);
-			}
-		}
-		for(Ramo r: this.tronco){
-			Fermata fermata;
-			fermata = r.getPrima_fermata();
-			esplora(r, fermata);
-		}
-	}
-	
-	private void esplora(Ramo ramo, Fermata fermata){
-		for(Punto p: this.punti){
-			double distanza_parziale;
-			double pericolo_parziale;
-			distanza_parziale = fermata.getDistanza_parziale();
-			distanza_parziale = distanza_parziale + this.distanze[p.getId()][fermata.getPunto_attuale().getId()];
-			if(distanza_parziale <= p.getDistanza_origine()*alpha){
-				pericolo_parziale = fermata.getPericolo_parziale();
-				pericolo_parziale = pericolo_parziale + this.pericolosita[p.getId()][fermata.getPunto_attuale().getId()];
-				Fermata nuovaFermata;
-				nuovaFermata = new Fermata(p, fermata, distanza_parziale, pericolo_parziale);
-				fermata.aggiungiFermata(nuovaFermata);
-				esplora(ramo, nuovaFermata);
 			}
 		}
 	}
