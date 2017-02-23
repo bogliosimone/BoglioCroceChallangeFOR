@@ -21,7 +21,9 @@ public class Stop {
 	}
 	
 	public Stop getFirstFollowing(){
-		return this.followingStop.get(0);
+		if(!this.followingStop.isEmpty())
+			return this.followingStop.get(0);
+		return null;
 	}
 	
 	public Node getNode() {

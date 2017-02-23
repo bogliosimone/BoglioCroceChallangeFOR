@@ -35,6 +35,7 @@ public class Solver4 {
 		//do these before remove root
 		this.mapNodes = initMapNodes(this.nodes);
 		this.routes = initRoutes(this.nodes);
+		this.distances = initDistances(this.nodes);
 		this.root = this.nodes.get(0);
 	}
 	
@@ -43,6 +44,8 @@ public class Solver4 {
 		nodes.remove(0);
 		DrawGraph.drawGraph(nodes, routesSolution, root);;
 		Risultato r = new Risultato();
+		DangerSolver ds = new DangerSolver(this.distances,this.dangers,routesSolution,1);
+		ds.solve();
 		List<Strada> strade = convertRouteToStrada(routesSolution);
 		for(Strada s: strade)
 			r.aggiungiStrade(s);
@@ -96,7 +99,7 @@ public class Solver4 {
 								double totalDist = currDist + r.getDistance();
 								if(totalDist <= n1.getMaxDistanceRoot()){
 									if(!n2.equals(root))
-										n1 = checkBetterNode2(n1,n2,mapNodeRoutes.get(id2),root,this.alpha,unvisited);
+										n1 = checkBetterNode2(n1,n2,mapNodeRoutes.get(id2),root,this.alpha,unvisited,currDist);
 									if(id1!=n1.getId())
 										System.out.println("swap ->" + mapNodes.get(id1) + " con "+n1);
 									id1 = n1.getId();
@@ -122,45 +125,31 @@ public class Solver4 {
 		return bestRoutes;
 	}
 	
-	private Node checkBetterNode(Node actualNode, Node leaf, List<Route> routes, Node root, double alpha, Map<Integer,Node> unvisited){
-		Node bestNode = actualNode;
-		double alphaNormUp = (alpha-1) *20;
-		double alphaNormDown = (alpha-1);
-		double alphaUp = 1 + alphaNormUp;
-		double alphaDown = 1+ alphaNormDown;
-		double diffAngle = calculateDifferenceBetweenAngles(leaf.calcolaAngolo(root),actualNode.calcolaAngolo(root));
-		double distanceSearchMin = Node.distanceNodes(actualNode, leaf);
-		double distanceSearchMax =Node.distanceNodes(actualNode, leaf)* alphaUp;
-		for(Route r: routes){
-			Node n = r.getEnd();
-			if(unvisited.containsKey(n.getId())&&Node.distanceNodes(leaf, n)<=distanceSearchMax
-					&&Node.distanceNodes(leaf, root)<=Node.distanceNodes(n, leaf)*1.3){
-				double newDiffAngle = calculateDifferenceBetweenAngles(leaf.calcolaAngolo(root),n.calcolaAngolo(root));
-				if(newDiffAngle <= diffAngle){
-					bestNode = n;
-					diffAngle = newDiffAngle;
-				}
-			}
-		}
-		return bestNode;
-	}
 	
-	private Node checkBetterNode2(Node actualNode, Node leaf, List<Route> routes, Node root, double alpha, Map<Integer,Node> unvisited){
+	private Node checkBetterNode2(Node actualNode, Node leaf, List<Route> routes, Node root, double alpha
+			, Map<Integer,Node> unvisited,double currentDistanceFromRoot){
 		Node bestNode = actualNode;
 		double alphaNormUp = (alpha-1);
 		double alphaNormDown = (alpha-1);
 		double alphaUp = 1 + alphaNormUp;
 		double alphaDown = 1+ alphaNormDown;
 		double diffAngle = calculateDifferenceBetweenAngles(leaf.calcolaAngolo(root),actualNode.calcolaAngolo(root));
+		diffAngle = 1-(diffAngle/360);
 		double distanceBestNode = Node.distanceNodes(actualNode, leaf);
+		distanceBestNode = 1- (distanceBestNode/(Node.distanceNodes(actualNode, root)*alpha));
 		double distanceSearchMax =Node.distanceNodes(actualNode, leaf)* alphaUp;
 		for(Route r: routes){
 			Node n = r.getEnd();
-			if(unvisited.containsKey(n.getId())&&Node.distanceNodes(leaf, root)<=Node.distanceNodes(n, leaf)*1.3
-					&&Node.distanceNodes(leaf, n)<=distanceSearchMax){
+			if(currentDistanceFromRoot+ Node.distanceNodes(n, leaf) > n.getMaxDistanceRoot())
+				continue;
+			if(unvisited.containsKey(n.getId())&&Node.distanceNodes(leaf, root)<=Node.distanceNodes(n, leaf)*alpha){
 				double newDiffAngle = calculateDifferenceBetweenAngles(leaf.calcolaAngolo(root),n.calcolaAngolo(root));
 				double newDistanceNode = Node.distanceNodes(n, leaf);
-				if((newDiffAngle * newDistanceNode) <= (diffAngle * distanceBestNode)){
+				newDistanceNode= 1-(newDistanceNode/(Node.distanceNodes(n, root)*alpha));
+				newDiffAngle = 1-(newDiffAngle/360);
+				System.out.println("ciao");
+				if((newDiffAngle > diffAngle )){
+				//if((newDiffAngle * newDistanceNode) > (diffAngle * distanceBestNode)){
 					bestNode = n;
 					diffAngle = newDiffAngle;
 					distanceBestNode = newDistanceNode;
@@ -220,4 +209,12 @@ public class Solver4 {
 		return mapNodeRoutes;
 	}
 	
+	private double[][] initDistances(List<Node> nodes){
+		double[][] distances = new double[n][n];
+		for(Node n1: nodes)
+			for(Node n2: nodes)
+					distances[n1.getId()][n2.getId()] = Node.distanceNodes(n1, n2);
+		return distances;
+	}
+
 }
