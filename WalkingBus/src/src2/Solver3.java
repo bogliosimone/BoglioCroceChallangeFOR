@@ -75,6 +75,7 @@ public class Solver3 {
 		visited.add(root);
 		distLeafRoot.put(root, new Double(0));
 		currentLeaf.add(root);
+		int count=0;
 			while(!unvisited.isEmpty()){
 				//for(Node nearestNode: orderedNodes){
 					for(Route r: allRoutes){
@@ -96,6 +97,9 @@ public class Solver3 {
 								distLeafRoot.put(n2, totalDist);
 								int index = unvisited.indexOf(n2);
 								visited.add(unvisited.remove(index));
+								count++;
+								if(count==6)
+									return bestRoutes;
 								break;
 							}
 						}
@@ -113,6 +117,9 @@ public class Solver3 {
 									distLeafRoot.put(n1, totalDist);
 									int index = unvisited.indexOf(n1);
 									visited.add(unvisited.remove(index));
+									count++;
+									if(count==6)
+										return bestRoutes;
 									break;
 								}
 							}

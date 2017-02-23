@@ -98,10 +98,10 @@ public class Solver4 {
 								double currDist = distLeafRoot.get(n2);
 								double totalDist = currDist + r.getDistance();
 								if(totalDist <= n1.getMaxDistanceRoot()){
-									if(!n2.equals(root))
+									/*if(!n2.equals(root))
 										n1 = checkBetterNode2(n1,n2,mapNodeRoutes.get(id2),root,this.alpha,unvisited,currDist);
 									if(id1!=n1.getId())
-										System.out.println("swap ->" + mapNodes.get(id1) + " con "+n1);
+										System.out.println("swap ->" + mapNodes.get(id1) + " con "+n1);*/
 									id1 = n1.getId();
 									totalDist = currDist + Node.distanceNodes(n1, n2);
 									bestRoutes.add(new Route(n1,n2,0));
@@ -111,7 +111,7 @@ public class Solver4 {
 									unvisited.remove(id1);
 									visited.put(id1, n1);
 									count ++;
-									//if(count ==50)
+									//if(count ==15)
 										//return bestRoutes;
 									check = true;
 									break;
@@ -134,22 +134,22 @@ public class Solver4 {
 		double alphaUp = 1 + alphaNormUp;
 		double alphaDown = 1+ alphaNormDown;
 		double diffAngle = calculateDifferenceBetweenAngles(leaf.calcolaAngolo(root),actualNode.calcolaAngolo(root));
-		diffAngle = 1-(diffAngle/360);
+		diffAngle = 1-(diffAngle/135);
 		double distanceBestNode = Node.distanceNodes(actualNode, leaf);
-		distanceBestNode = 1- (distanceBestNode/(Node.distanceNodes(actualNode, root)*alpha));
+		distanceBestNode = 1- (distanceBestNode/(Node.distanceNodes(actualNode, root)*1));
 		double distanceSearchMax =Node.distanceNodes(actualNode, leaf)* alphaUp;
 		for(Route r: routes){
 			Node n = r.getEnd();
-			if(currentDistanceFromRoot+ Node.distanceNodes(n, leaf) > n.getMaxDistanceRoot())
+			if(currentDistanceFromRoot+ Node.distanceNodes(n, leaf) > n.getMaxDistanceRoot() || n.equals(bestNode))
 				continue;
 			if(unvisited.containsKey(n.getId())&&Node.distanceNodes(leaf, root)<=Node.distanceNodes(n, leaf)*alpha){
 				double newDiffAngle = calculateDifferenceBetweenAngles(leaf.calcolaAngolo(root),n.calcolaAngolo(root));
 				double newDistanceNode = Node.distanceNodes(n, leaf);
-				newDistanceNode= 1-(newDistanceNode/(Node.distanceNodes(n, root)*alpha));
-				newDiffAngle = 1-(newDiffAngle/360);
-				System.out.println(bestNode + " try-> "+  n);
-				if(newDistanceNode > distanceBestNode){
-				//if((newDiffAngle * newDistanceNode) > (diffAngle * distanceBestNode)){
+				newDistanceNode= 1-(newDistanceNode/(Node.distanceNodes(n, root)));
+				newDiffAngle = 1-(newDiffAngle/135);
+				//System.out.println("new try:"+n+" -> "+bestNode);
+				//System.out.println("a1:"+newDiffAngle + "d1:"+ newDistanceNode +" a2:"+diffAngle + " a3:" +distanceBestNode);
+				if((newDiffAngle * newDistanceNode) > (diffAngle * distanceBestNode)){
 					bestNode = n;
 					diffAngle = newDiffAngle;
 					distanceBestNode = newDistanceNode;
