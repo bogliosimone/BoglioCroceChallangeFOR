@@ -16,7 +16,18 @@ public class Combinazione {
 	}
 	
 	public boolean controlloMigliore(Combinazione combinazione){
-		if(combinazione.getDistanza() < this.distanza){
+		double deltaOld=Math.abs(this.fermata.getPunto_attuale().getAngolo()-punto.getAngolo());
+		double deltaNew=Math.abs(combinazione.fermata.getPunto_attuale().getAngolo()-punto.getAngolo());
+		double disNew = combinazione.getDistanza();
+		double disOld = this.distanza;
+		double alphaOld = this.fermata.getPunto_attuale().getAngolo();
+		double alphaNew = combinazione.fermata.getPunto_attuale().getAngolo();
+		double gammaOld = punto.calcolaAngoloRelativo(this.fermata.getPunto_attuale())-alphaOld;
+		double gammaNew = punto.calcolaAngoloRelativo(combinazione.fermata.getPunto_attuale()) - alphaNew;
+		//deltaNew = Math.abs(gammaNew);
+		//deltaOld = Math.abs(gammaOld);
+		//if(combinazione.getDistanza() < this.distanza){
+		if(deltaNew<deltaOld){
 			return true;
 		}
 		if(combinazione.getDistanza() == this.distanza && combinazione.getPericolo() < this.pericolo){

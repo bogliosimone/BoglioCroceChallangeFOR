@@ -12,15 +12,25 @@ public class Punto {
 		this.id = id;
 	}
 
-	public void calcolaAngolo(Punto p){
-		double ac;
-		double ab;
-		ac = Math.sqrt(((double)p.getCoord().getX()-(double)this.coord.getX())*((double)p.getCoord().getX()-(double)this.coord.getX()) + ((double)p.getCoord().getY()-(double)this.coord.getY())*((double)p.getCoord().getY()-(double)this.coord.getY()));  
-		ab = this.coord.getX() - p.getCoord().getX();
-		this.angolo = Math.acos(ab/ac);
-		if(this.getCoord().getY()-p.getCoord().getY()<=0){
-			this.angolo = this.angolo + Math.PI;
-		}
+	
+	public void calcolaAngolo(Punto root) {
+		double diffx=(double)this.getCoord().getX()-(double)root.getCoord().getX();
+		double diffy=(double)this.getCoord().getY()-(double)root.getCoord().getY();
+	    double angle = Math.toDegrees(Math.atan2(diffy,diffx));
+	    if(angle < 0){
+	        angle += 360;
+	    }
+	    this.angolo= angle;
+	}
+	
+	public double calcolaAngoloRelativo(Punto point) {
+		double diffx=(double)this.getCoord().getX()-(double)point.getCoord().getX();
+		double diffy=(double)this.getCoord().getY()-(double)point.getCoord().getY();
+	    double angle = Math.toDegrees(Math.atan2(diffy,diffx));
+	    if(angle < 0){
+	        angle += 360;
+	    }
+	    return angle;
 	}
 	
 	public Coordinate getCoord() {

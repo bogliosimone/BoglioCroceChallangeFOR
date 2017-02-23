@@ -31,9 +31,6 @@ public class SolverPerm {
 	
 	private void ordinaAngolo(){
 		Collections.sort(this.punti, (p1, p2)->new Double(p1.getAngolo()).compareTo(new Double(p2.getAngolo())));
-		for(Punto p: this.punti){
-			System.out.println(p.getId() + " " + p.getAngolo());
-		}
 	}
 	
 	public Risultato calcola(){
@@ -42,6 +39,7 @@ public class SolverPerm {
 		Risultato risultato;
 		Punto temp;
 		int i =0;
+		//ordinaAngolo();
 		ordinaDistanza();
 		Permutazione perm = new Permutazione((ArrayList<Punto>) this.punti,9);
 		this.punti = perm.getNextPermutation(); 
@@ -188,7 +186,7 @@ public class SolverPerm {
 			}
 		}
 	
-		if(combinazione != null){
+		/*if(combinazione != null){
 			Fermata fermata_precedente;
 			fermata_precedente = combinazione.getFermata();
 			Fermata fermata = new Fermata(punto, fermata_precedente, combinazione.getDistanza(), combinazione.getPericolo());
@@ -201,9 +199,9 @@ public class SolverPerm {
 			}
 			risultato.setPericolo(risultato.getPericolo() + this.pericolosita[punto.getId()][fermata_precedente.getPunto_attuale().getId()]);
 		}
-		else{
+		else{*/
 			iniziaNuovoRamo(punto, risultato);
-		}
+		//}
 		return true;
 	}
 	

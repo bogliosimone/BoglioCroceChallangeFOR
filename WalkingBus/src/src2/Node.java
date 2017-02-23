@@ -3,6 +3,8 @@ package src2;
 import java.util.ArrayList;
 import java.util.List;
 
+import src.Punto;
+
 public class Node {
 	private int id;
 	private int x;
@@ -10,6 +12,7 @@ public class Node {
 	private double distanceRoot;
 	private double maxDistanceRoot;
 	private List<Node> neighborsNode;
+	private double angle; 
 	
 	public Node(int id, int x, int y, double distanceRoot, double alpha) {
 		super();
@@ -19,7 +22,6 @@ public class Node {
 		this.distanceRoot = distanceRoot;
 		this.maxDistanceRoot = distanceRoot * alpha;
 		neighborsNode = new ArrayList<Node>();
-		
 	}
 	
 	public double getDistanceRoot() {
@@ -62,8 +64,23 @@ public class Node {
 		neighborsNode.add(n);
 	}
 
+	public double calcolaAngolo(Node root) {
+		double diffx=(double)this.x-(double)root.x;
+		double diffy=(double)this.y-(double)root.y;
+	    double angle = Math.toDegrees(Math.atan2(diffy,diffx));
+	    if(angle < 0){
+	        angle += 360;
+	    }
+	    this.angle= angle;
+	    return angle;
+	}
+	
+	public double getAngle() {
+		return angle;
+	}
+
 	public static double distanceNodes(Node n1, Node n2){
-		return Math.sqrt((n2.x-n1.x)*(n2.x-n1.x) + (n2.y-n1.y)*(n2.y-n1.y));
+		return Math.sqrt((((double)n2.x-(double)n1.x)*((double)n2.x-(double)n1.x) + ((double)n2.y-(double)n1.y)*((double)n2.y-(double)n1.y)));
 	}
 
 	@Override
@@ -92,14 +109,15 @@ public class Node {
 		Node other = (Node) obj;
 		if (id != other.id)
 			return false;
-		if (x != other.x)
-			return false;
-		if (y != other.y)
-			return false;
 		return true;
 	}
 	
-	
+	public static void printNodes(List<Node> listNode){
+		String s = new String();
+		for(Node k: listNode)
+			s += k.getId()+" - ";
+		System.out.println(s);
+	}
 	
 	
 }

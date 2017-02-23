@@ -117,7 +117,7 @@ public class Solver2 {
 		for(Node n1: nodes){
 			for(Node n2: nodes){
 				if(arcs[n1.getId()][n2.getId()] == true){
-					Route route = new Route(n1,n2);
+					Route route = new Route(n1,n2,0);
 					routes.add(route);
 				}
 			}
@@ -190,7 +190,7 @@ public class Solver2 {
 			List<Node> nodes = b.getBranch();
 			int max= nodes.size();
 			for(int i=0; i< max-1; i++){
-				routes.add(new Route(nodes.get(i),nodes.get(i+1)));
+				routes.add(new Route(nodes.get(i),nodes.get(i+1),0));
 			}
 		}
 		return routes;	

@@ -2,6 +2,7 @@ package src;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Permutazione {
@@ -39,13 +40,29 @@ public class Permutazione {
 	@SuppressWarnings("unchecked")
 	Permutazione (ArrayList<Punto> points, int n){
 		this.original = (ArrayList<Punto>) points.clone();
+		this.original = (ArrayList<Punto>) mixStartList(this.original);
 		this.n = n;
 		cuttedListStart = this.original.subList(0, n);
 		cuttedListEnd = this.original.subList(n, original.size());
+		
 		permutationsPoints = (List<List<Punto>>) permute(cuttedListStart);
 		sizePermutations = permutationsPoints.size();
 	}
 	
+	
+	
+	public ArrayList<Punto> getOriginal() {
+		return original;
+	}
+
+
+
+	public void setOriginal(ArrayList<Punto> original) {
+		this.original = original;
+	}
+
+
+
 	public List<Punto> getNextPermutation(){
 		if(permutationsPoints.isEmpty())
 			return null;
@@ -53,6 +70,58 @@ public class Permutazione {
 		sizePermutations --;
 		newPermutation.addAll(cuttedListEnd);
 		return newPermutation;
+	}
+	
+	public List<Punto> mixStartList(List<Punto> list){
+		int n = 8;
+		double step = 360.0001/n;
+		List<List<Punto>> listList = new ArrayList<List<Punto>>();
+		for(int i=0; i<n; i++){
+			listList.add(new ArrayList<Punto>());
+		}
+		for(Punto p: list){
+			int pSector = (int) (p.getAngolo()/step);
+			listList.get(pSector).add(p);
+		}
+		for(List<Punto> l: listList){
+			Collections.sort(l, (p1, p2)->new Double(p1.getDistanza_origine()).compareTo(new Double(p2.getDistanza_origine())));
+		}
+		List<Punto> startList = new ArrayList<Punto>();
+		List<Punto> endList = new ArrayList<Punto>();
+		for(List<Punto> l: listList){
+			for(int i=0;i<l.size();i++){
+				if(i==0)
+					startList.add(l.get(i));
+				else
+					endList.add(l.get(i));
+			}
+		}
+		Collections.sort(endList, (p1, p2)->new Double(p1.getDistanza_origine()).compareTo(new Double(p2.getDistanza_origine())));
+		startList.addAll(endList);
+		return startList;
+	}
+	
+	
+	
+	public List<Punto> mixEndList(List<Punto> list){
+		int n = 1;
+		double step = 360/n;
+		List<List<Punto>> listList = new ArrayList<List<Punto>>();
+		for(int i=0; i<n; i++){
+			listList.add(new ArrayList<Punto>());
+		}
+		for(Punto p: list){
+			int pSector = (int) (p.getAngolo()/step);
+			listList.get(pSector).add(p);
+		}
+		for(List<Punto> l: listList){
+			Collections.sort(l, (p1, p2)->new Double(p1.getDistanza_origine()).compareTo(new Double(p2.getDistanza_origine())));
+		}
+		List<Punto> endList = new ArrayList<Punto>();
+		for(List<Punto> l: listList){
+			endList.addAll(l);
+		}
+		return endList;
 	}
 	
 	

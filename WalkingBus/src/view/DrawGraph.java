@@ -29,7 +29,7 @@ public class DrawGraph {
 		for(Route r: routes){
 			String idStart = Integer.toString(r.getStart().getId());
 			String idEnd = Integer.toString(r.getEnd().getId());
-			graph.addEdge(idStart+"-"+idEnd,idStart,idEnd,true);
+			graph.addEdge(idStart+"-"+idEnd,idStart,idEnd);
 		}
 		
 		//draw

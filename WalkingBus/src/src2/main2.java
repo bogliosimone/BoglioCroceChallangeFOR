@@ -17,7 +17,7 @@ public class main2 {
 		Risultato risultato;
 		Dataset dataset;
 		String pathDatFile; // for debug mode
-		String debugPathFile = "test_instances/pedibus_10.dat";
+		String debugPathFile = "test_instances/pedibus_20.dat";
 		if(args.length != 1) {
 			if(!debugMode){
 				System.err.println("Invalid command line, exactly one argument required");
@@ -37,17 +37,12 @@ public class main2 {
 			return;
 		}
 				
-		Solver2 solver2 = new Solver2(dataset.getPoints(), dataset.getDangerMatrix(), dataset.getParamAlpha(), dataset.getParamN());
-		risultato = solver2.compute();
-		
-		
-		for(Strada s: risultato.getStrade()){
-			System.out.println(s.getPartenza().getId() + " - " + s.getArrivo().getId());
-		}
+		Solver4 solver4 = new Solver4(dataset.getPoints(), dataset.getDangerMatrix(), dataset.getParamAlpha(), dataset.getParamN());
+		risultato = solver4.compute();
 		System.out.println("");
 		System.out.println(risultato.getNum_foglie() + " - " + risultato.getPericolo());
 		
-		//OutputParser.OutputFile(pathDatFile, risultato);
+		OutputParser.OutputFile(pathDatFile, risultato);
 
 	}
 }

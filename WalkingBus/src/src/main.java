@@ -14,7 +14,7 @@ public class main {
 		Risultato risultato;
 		Dataset dataset;
 		String pathDatFile; // for debug mode
-		String debugPathFile = "test_instances/pedibus_100.dat";
+		String debugPathFile = "test_instances/pedibus_250.dat";
 		if(args.length != 1) {
 			if(!debugMode){
 				System.err.println("Invalid command line, exactly one argument required");
@@ -31,10 +31,10 @@ public class main {
 		solver = new SolverPerm(dataset.getPoints(), dataset.getDangerMatrix(), dataset.getParamAlpha());
 		risultato = solver.calcola();
 		
-		for(Strada s: risultato.getStrade()){
-			System.out.println(s.getPartenza().getId() + " - " + s.getArrivo().getId());
-		}
-		System.out.println("");
+		//for(Strada s: risultato.getStrade()){
+			//System.out.println(s.getPartenza().getId() + " - " + s.getArrivo().getId());
+		//}
+		//System.out.println("");
 		System.out.println(risultato.getNum_foglie() + " - " + risultato.getPericolo());
 		
 		OutputParser.OutputFile(pathDatFile, risultato);

@@ -27,7 +27,7 @@ public class OutputParser {
 			e.printStackTrace();
 		}
 		//:D uoooooooooh faccio anche il disegnino
-		drawGraph(risultato);
+		//drawGraph(risultato);
 	}
 		
 		public static void drawGraph(Risultato ris) {
