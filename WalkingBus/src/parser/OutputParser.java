@@ -17,7 +17,7 @@ public class OutputParser {
 		List<Strada> list = risultato.getStrade();
 		String fileString = new String();
 		for(Strada s: list){
-			fileString += s.getArrivo().getId() + " " + s.getPartenza().getId() + "\n";
+			fileString += s.getPartenza().getId() + " " + s.getArrivo().getId() + "\n";
 		}
 		String fileName =  FilenameUtils.getBaseName(filePath)+".sol";
 		File file = new File(fileName);

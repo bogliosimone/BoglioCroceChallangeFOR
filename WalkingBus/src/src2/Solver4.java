@@ -55,7 +55,7 @@ public class Solver4 {
 	private List<Strada> convertRouteToStrada(List<Route> routesSolution) {
 		List<Strada> strade= new ArrayList<Strada>();
 		for(Route r: routesSolution){
-			strade.add(new Strada(new Punto(new Coordinate(0,0),r.getEnd().getId(),0),new Punto(new Coordinate(0,0),r.getStart().getId(),0)));
+			strade.add(new Strada(new Punto(new Coordinate(0,0),r.getStart().getId(),0),new Punto(new Coordinate(0,0),r.getEnd().getId(),0)));
 		}
 		return strade;
 	}
@@ -147,8 +147,8 @@ public class Solver4 {
 				double newDistanceNode = Node.distanceNodes(n, leaf);
 				newDistanceNode= 1-(newDistanceNode/(Node.distanceNodes(n, root)*alpha));
 				newDiffAngle = 1-(newDiffAngle/360);
-				System.out.println("ciao");
-				if((newDiffAngle > diffAngle )){
+				System.out.println(bestNode + " try-> "+  n);
+				if(newDistanceNode > distanceBestNode){
 				//if((newDiffAngle * newDistanceNode) > (diffAngle * distanceBestNode)){
 					bestNode = n;
 					diffAngle = newDiffAngle;
