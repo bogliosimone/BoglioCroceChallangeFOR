@@ -5,8 +5,8 @@ import java.util.List;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 
-import src2.Node;
-import src2.Route;
+import src.Node;
+import src.Route;
 
 public class DrawGraph {
 	public static void drawGraph(List<Node> nodes, List<Route> routes, Node root) {

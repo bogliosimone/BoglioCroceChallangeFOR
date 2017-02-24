@@ -3,15 +3,15 @@ package parser;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import src.Punto;
+import src.Node;
 
 public class Dataset {
 	int paramN = -1;
 	double paramAlpha = -1;
-	ArrayList<Punto> points;
+	ArrayList<Node> points;
 	double[][] dangerMatrix;
 	
-	public Dataset(int paramN, double paramAlpha, ArrayList<Punto> points, double[][] dangerMatrix) {
+	public Dataset(int paramN, double paramAlpha, ArrayList<Node> points, double[][] dangerMatrix) {
 		super();
 		this.paramN = paramN;
 		this.paramAlpha = paramAlpha;
@@ -24,7 +24,7 @@ public class Dataset {
 	public double getParamAlpha() {
 		return paramAlpha;
 	}
-	public ArrayList<Punto> getPoints() {
+	public ArrayList<Node> getPoints() {
 		return points;
 	}
 	public double[][] getDangerMatrix() {

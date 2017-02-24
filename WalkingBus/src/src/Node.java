@@ -1,9 +1,7 @@
-package src2;
+package src;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import src.Punto;
 
 public class Node {
 	private int id;
