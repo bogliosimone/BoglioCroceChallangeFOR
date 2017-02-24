@@ -35,8 +35,8 @@ public class Solver {
 		nLeaf2 = start(true,routesSolution2); //with check better node function
 		double danger1 = computeDanger(routesSolution1);
 		double danger2 = computeDanger(routesSolution2);
-		System.out.println(nLeaf1 + " " + nLeaf2);
-		System.out.println(danger1 + " " + danger2);
+		//System.out.println(nLeaf1 + " " + nLeaf2);
+		//System.out.println(danger1 + " " + danger2);
 		if(nLeaf1 < nLeaf2)
 			bestRoutesSolution = routesSolution1;
 		else if(nLeaf1> nLeaf2)
@@ -46,7 +46,8 @@ public class Solver {
 		else
 			bestRoutesSolution = routesSolution2;
 		nodes.remove(0);
-		DrawGraph.drawGraph(nodes, bestRoutesSolution, root);
+		//uncomment this line to draw the graph
+		//DrawGraph.drawGraph(nodes, bestRoutesSolution, root);
 		return bestRoutesSolution;
 	}
 
