@@ -1,0 +1,5 @@
+Instruction to run the pedibus_solver
+
+to run the jar file write this command on the terminal:
+
+java -jar pedibus_solver.jar path_instances.dat
