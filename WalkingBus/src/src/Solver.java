@@ -45,8 +45,8 @@ public class Solver {
 			bestRoutesSolution = routesSolution1;
 		else
 			bestRoutesSolution = routesSolution2;
-		nodes.remove(0);
-		//uncomment this line to draw the graph
+		//uncomment this two lines to draw the graph
+		//nodes.remove(0);
 		//DrawGraph.drawGraph(nodes, bestRoutesSolution, root);
 		return bestRoutesSolution;
 	}
